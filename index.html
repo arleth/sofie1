@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="styles/styles.css">
+    <meta charset="UTF-8">
+    <title>Opgave3</title>
+</head>
+<body>
+<h1>Opgave 3 - Sofie Arleth</h1>
+<div class="main-row">
+    <div id="col1" class="common-col normal-col">
+        <h5>Udgave / Forlag:</h5>
+        her er kolonne 1
+    </div>
+    <div id="col2" class="common-col normal-col">
+        <h5>Resume</h5>
+        her er kolonne 2
+    </div>
+    <div id="col3" class="common-col image-col">
+        <h5>Billeder</h5>
+        <div>
+            <a id="buttonTop" href="#" class="more round">Tryk for næste side</a>
+        </div>
+        <div id="side1" class="picture">
+            <img src="images/side1.jpg" height="500" alt="Den lille pige med svovlstikkerne"/>
+        </div>
+        <div id="side2" class="picture">
+            <img src="images/side2.jpg" height="500" alt="Den lille pige med svovlstikkerne"/>
+        </div>
+        <div id="side3" class="picture">
+            <img src="images/side3.jpg" height="500" alt="Den lille pige med svovlstikkerne"/>
+        </div>
+        <div>
+            <button id="buttonBottom" onclick="nextPage(this, arguments)" class="more round">Næste side</button>
+        </div>
+    </div>
+</div>
+<script src="js/app.js"></script>
+</body>
+</html>
