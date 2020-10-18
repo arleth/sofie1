@@ -16,70 +16,171 @@ picture3.style.display = 'none';
 // const topNextPageButton = document.getElementById('buttonTop');
 // topNextPageButton.addEventListener('click', nextPage);
 
-// two globals to hold the initial setup - will be incremented during button events
+// globals to hold the initial setup - will be incremented during button events - only used in version 1
 let currentPage = 'side1';
 let pageCounter = 0;
+let firstTime = true;
+let currentIndex = 0;
+
 /**
- * Display the next page
+ * Display the next page - this works - version 1 - but only going forward!
  * @param event
  */
 function nextPage(event) {
     console.log('nextPage happened!');
+    let nextIndex = calculateNextIndex(event);
     let pics = document.querySelectorAll('.picture'); // find all pictures
     let picsArray = Array.from(pics); // convert in order to iterate using an old school for loop
     let tempNewPage = currentPage; // work against a temp - postpone update of currentPage until we are done!
     let nextPageIndex = 0; // for calculating next page
-    if(pageCounter === 0) {
+    if (firstTime) {
         nextPageIndex = 1; // first time
-    }else {
+        firstTime = false;
+    } else {
         nextPageIndex = pageCounter % 3;
     }
-    for(let i = 0; i < picsArray.length;i++){
+    for (let i = 0; i < picsArray.length; i++) {
         let d = picsArray[i];
-        console.log('picsarray: '+ d.id);
+        console.log('picsarray: ' + d.id);
         if (d.id === currentPage) {
             d.style.display = 'none';
-        }else {
+        } else {
             // all other pages
-            if(i === nextPageIndex){
+            if (i === nextPageIndex) {
                 d.style.display = 'block';
                 tempNewPage = d.id;
                 pageCounter = nextPageIndex + 1;
-            }
-            else {
+            } else {
                 d.style.display = 'none';
             }
         }
     }
     currentPage = tempNewPage;
 }
+
+/**
+ * This almost works - however, never finalized - version 1 !!
+ * @param event
+ */
 function previousPage(event) {
     console.log('previousPage happened!');
+    let nextIndex = calculateNextIndex(event);
     let pics = document.querySelectorAll('.picture'); // find all pictures
     let picsArray = Array.from(pics); // convert in order to iterate using an old school for loop
     let tempNewPage = currentPage; // work against a temp - postpone update of currentPage until we are done!
     let nextPageIndex = 0; // for calculating next page
-    if(pageCounter === 0) {
+    if (firstTime) {
         nextPageIndex = 2; // first time
-    }else {
+        firstTime = false;
+    } else {
         nextPageIndex = pageCounter % 3;
     }
-    for(let i = 0; i < picsArray.length;i++){
+    for (let i = 0; i < picsArray.length; i++) {
         let d = picsArray[i];
-        console.log('picsarray: '+ d.id);
+        console.log('picsarray: ' + d.id);
         if (d.id === currentPage) {
             d.style.display = 'none';
-        }else {
+        } else {
             // all other pages
-            if(i === nextPageIndex){
+            if (i === nextPageIndex) {
                 d.style.display = 'block';
                 tempNewPage = d.id;
                 pageCounter = nextPageIndex - 1;
-            }
-            else {
+            } else {
                 d.style.display = 'none';
             }
         }
     }
     currentPage = tempNewPage;
+}
+
+/**
+ * get pictures and convert in order to iterate using an old school for loop
+ * @returns {Element[]}
+ */
+function getPictureArray() {
+    let pics = document.querySelectorAll('.picture'); // find all pictures
+    return Array.from(pics);
+}
+
+/**
+ * set diplay attribute on the pictures according to the nextPageIndex calculated.
+ * @param nextPageIndex
+ */
+function setDisplayNextPage(nextPageIndex) {
+    let picsArray = getPictureArray();
+    for (let i = 0; i < picsArray.length; i++) {
+        let d = picsArray[i];
+        console.log('picsarray: ' + d.id);
+        if (i === nextPageIndex) {
+            d.style.display = 'block';
+        } else {
+            d.style.display = 'none';
+        }
+    }
+}
+
+/**
+ * onClick from Top-Button - next button
+ * @param event - the event contains information about which button is called
+ */
+function nextPageVersion2(event) {
+    console.log('next version 2');
+    let nextPageIndex = calculateNextIndex(event);
+    setDisplayNextPage(nextPageIndex);
+}
+
+/**
+ * onClick from Bottom-Button - previous button
+ * @param event - the event contains information about which button is called
+ */
+function previousPageVersion2(event) {
+    console.log("back version 2");
+    let nextPageIndex = calculateNextIndex(event);
+    setDisplayNextPage(nextPageIndex);
+}
+
+/**
+ * Find the current page index - done by
+ * finding the index containing a div with display = 'block'
+ */
+function getCurrentIndex() {
+    let picsArray = getPictureArray();
+    let currentIndex = 0;
+    for (let i = 0; i < picsArray.length; i++) {
+        let d = picsArray[i];
+        if (d.style.display === 'block') {
+            currentIndex = i;
+            break;
+        }
+    }
+    return currentIndex;
+}
+
+/**
+ * find the next index
+ * @param event - which button hit us - passed on from the onClick handler (method)
+ * @returns {number} - the next index to display
+ */
+function calculateNextIndex(event) {
+    console.log('calculateNextIndex from: ' + event.className);
+    let nextIndex = 0; // at least we will start from the beginning
+    if (event.className === 'bottom') {
+        // go back
+        nextIndex = getCurrentIndex() - 1;
+        // prevent index-out-of-bounce exceptions
+        if (nextIndex < 0) {
+            nextIndex = 2;
+        }
+    }
+    if (event.className === 'top') {
+        // go forward
+        nextIndex = getCurrentIndex() + 1;
+        // prevent index-out-of-bounce exceptions
+        if (nextIndex > 2) {
+            nextIndex = 0;
+        }
+    }
+    console.log('Calculated NextIndex: '+nextIndex);
+    return nextIndex;
 }
