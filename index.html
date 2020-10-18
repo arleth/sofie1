@@ -14,12 +14,12 @@
     </div>
     <div id="col2" class="common-col normal-col">
         <h5>Resume</h5>
-        her er kolonne 2
     </div>
     <div id="col3" class="common-col image-col">
         <h5>Billeder</h5>
         <div>
-            <a id="buttonTop" href="#" class="more round">Tryk for næste side</a>
+            <button id="buttonTop" onclick="nextPage(this, arguments)" >Næste side</button>
+            <!--<a id="buttonTop" href="#" class="more round">Tryk for næste side</a>-->
         </div>
         <div id="side1" class="picture">
             <img src="images/side1.jpg" height="500" alt="Den lille pige med svovlstikkerne"/>
@@ -31,7 +31,7 @@
             <img src="images/side3.jpg" height="500" alt="Den lille pige med svovlstikkerne"/>
         </div>
         <div>
-            <button id="buttonBottom" onclick="nextPage(this, arguments)" class="more round">Næste side</button>
+            <button id="buttonBottom" onclick="nextPage(this, arguments)" >Næste side</button>
         </div>
     </div>
 </div>

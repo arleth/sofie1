@@ -13,8 +13,8 @@ picture1.style.display = 'block';
 picture2.style.display = 'none';
 picture3.style.display = 'none';
 // add event listeners to top and bottom buttons
-const topNextPageButton = document.getElementById('buttonTop');
-topNextPageButton.addEventListener('click', nextPage);
+// const topNextPageButton = document.getElementById('buttonTop');
+// topNextPageButton.addEventListener('click', nextPage);
 
 // two globals to hold the initial setup - will be incremented during button events
 let currentPage = 'side1';
