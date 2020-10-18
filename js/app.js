@@ -53,3 +53,33 @@ function nextPage(event) {
     }
     currentPage = tempNewPage;
 }
+function previousPage(event) {
+    console.log('previousPage happened!');
+    let pics = document.querySelectorAll('.picture'); // find all pictures
+    let picsArray = Array.from(pics); // convert in order to iterate using an old school for loop
+    let tempNewPage = currentPage; // work against a temp - postpone update of currentPage until we are done!
+    let nextPageIndex = 0; // for calculating next page
+    if(pageCounter === 0) {
+        nextPageIndex = 2; // first time
+    }else {
+        nextPageIndex = pageCounter % 3;
+    }
+    for(let i = 0; i < picsArray.length;i++){
+        let d = picsArray[i];
+        console.log('picsarray: '+ d.id);
+        if (d.id === currentPage) {
+            d.style.display = 'none';
+        }else {
+            // all other pages
+            if(i === nextPageIndex){
+                d.style.display = 'block';
+                tempNewPage = d.id;
+                pageCounter = nextPageIndex - 1;
+            }
+            else {
+                d.style.display = 'none';
+            }
+        }
+    }
+    currentPage = tempNewPage;
+}
