@@ -1,6 +1,12 @@
 div {
     display: block;
 }
+.highlight{
+    color: red;
+    font-size: 18px;
+    text-shadow: 1px 1px 1px #fff;
+    font-weight: bold;
+}
 .common-col {
     float: left;
     width: 28%;

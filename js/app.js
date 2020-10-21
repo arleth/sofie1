@@ -3,7 +3,8 @@ console.log("hello script");
 // add the text to a <p> in column 2
 const column2 = document.getElementById('col2');
 const paragraphElement = document.createElement('p');
-paragraphElement.textContent = text;
+paragraphElement.innerHTML = text;
+paragraphElement.className = 'col2text';
 column2.appendChild(paragraphElement);
 // hide page2 + page3 for a start
 const picture1 = document.getElementById('side1');
@@ -21,6 +22,8 @@ let currentPage = 'side1';
 let pageCounter = 0;
 let firstTime = true;
 let currentIndex = 0;
+const res = text.split('.');
+console.log("erik");
 
 /**
  * Display the next page - this works - version 1 - but only going forward!
@@ -121,6 +124,43 @@ function setDisplayNextPage(nextPageIndex) {
 }
 
 /**
+ * Find the first word and add a span element with a class to enable css styling
+ * @param string -  the sentence
+ * @returns {string} - updated sentence
+ */
+function addHighLight(string) {
+    let index = string.indexOf(' ');
+    let firstWord = string.slice(0,index);
+    let rest = string.slice(index,string.length);
+    let highlightedFirstWord = '<span class="highlight">'+firstWord+'</span>';
+    return highlightedFirstWord + rest;
+}
+
+/**
+ * onClick from "Fremhæv" - button
+ * Take the original text and split it on '.' - for each sentence add the highlight part
+ * add the updated sentence to a new array
+ * once all the sentences are updated - concatenate the sentences back into an updatedText
+ * look up the paragraph - update the innerHTML with the updated sentences.
+ * @param event - the event contains information about which button is called
+ */
+function highLight(event) {
+    console.log('highLight');
+    let sentences = text.split('.');
+    let updatedSentences = [sentences.length];
+    for(let i = 0; i < sentences.length; i++) {
+        updatedSentences[i] = addHighLight(sentences[i]);
+    }
+    let updatedText = '';
+    for(let i = 0; i <updatedSentences.length;i++){
+       updatedText += updatedSentences[i]+'.';
+    }
+    // find the p-element and set the new text
+    let pNodeList = document.querySelectorAll('.col2text');
+    pNodeList[0].innerHTML = updatedText;
+}
+
+/**
  * onClick from Top-Button - next button
  * @param event - the event contains information about which button is called
  */
@@ -181,6 +221,6 @@ function calculateNextIndex(event) {
             nextIndex = 0;
         }
     }
-    console.log('Calculated NextIndex: '+nextIndex);
+    console.log('Calculated NextIndex: ' + nextIndex);
     return nextIndex;
 }
