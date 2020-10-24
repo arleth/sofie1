@@ -24,7 +24,7 @@ let firstTime = true;
 let currentIndex = 0;
 const res = text.split('.');
 console.log("erik");
-
+// adding potential merge conflict
 /**
  * Display the next page - this works - version 1 - but only going forward!
  * @param event
