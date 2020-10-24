@@ -98,7 +98,7 @@ function previousPage(event) {
 }
 
 /**
- * get pictures and convert in order to iterate using an old school for loop
+ * Get pictures and convert in order to iterate using an old school for loop
  * @returns {Element[]}
  */
 function getPictureArray() {
