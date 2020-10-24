@@ -16,6 +16,7 @@ picture3.style.display = 'none';
 // add event listeners to top and bottom buttons
 // const topNextPageButton = document.getElementById('buttonTop');
 // topNextPageButton.addEventListener('click', nextPage);
+// extra line added for doc
 
 // globals to hold the initial setup - will be incremented during button events - only used in version 1
 let currentPage = 'side1';
