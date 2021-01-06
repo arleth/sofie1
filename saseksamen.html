@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Zalando Fodtøj</title>
+<link rel="stylesheet" type="text/css" href="saseksamen.css"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+	<img class="logo" src=zalando.png>
+
+	<div id="sko">
+		<h1>Sko</h1>
+	</div>
+
+	<div class="menu">
+		<button onclick="dameSko()">Dame</button>
+		<button onclick="herreSko()">Herre</button>
+		<button onclick="boerneSko()">Børn</button> <br> <br> 
+	<div> 
+		<button onclick="skoStoerrelse()">Sko størrelser</button>
+		<input type="search" id="soegStoerrelser">
+	</div>
+	</div> 
+
+	<hr class="linje"> <br> 
+
+	<div id="billeder" class="billeder">
+		<div id="herre" class="herreSko billede">
+			<img id="billede1" src="herre.png">
+		</div>
+		<div id="dame" class="dameSko billede">
+			<img id="billede2" src="sortsko.png">
+		</div>
+		<div id="boern" class="boerneSko billede">
+			<img id="billede3" src="boerne.png">
+		</div>
+	</div> 
+
+	<h4>Sko udvalg:</h4>
+	<div id="liste"></div>  
+
+	<hr class="linje">  
+
+<div>
+	<p class="b"><b>Tilføj Sko:</b></p>
+	<input type="number" name="type" id="ny_sko">
+	<input type="text" name="maerke" id="ny_sko">
+	<input type="text" name="navn " id="ny_sko">
+	<input type="number" name="stoerrelser" id="ny_sko">
+	<input type="number" name="pris" id="ny_sko">
+	<input type="button" value="Enter" onclick="tilfoejSko()">
+</div>
+
+<button onclick="skoKnap()">Tilføj Sko</button>
+
+<script type="text/javascript" src="saseksamen.js"></script>
+</body>
+</html>
