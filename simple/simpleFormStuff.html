@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <title>formDemo.html</title>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+<h1>Form Demo</h1>
+<div>
+    <form method="GET" action="#" onsubmit="checkForm(this);return false;">
+        <fieldset>
+            <legend>Opret Sko</legend>
+            <p>
+                <label>Type</label>
+                <select id="typeListe">
+                    <option value="1">DAME</option>
+                    <option value="2">HERRE</option>
+                    <option value="3">BARN</option>
+                    <option value="4">NONE</option>
+                </select>
+            </p>
+            <p>Mærke: <input type="text" size="32" name="maerke">
+            <p>Navn: <input type="text" size="32" name="navn">
+            <p>
+                <label>Str</label>
+                <select multiple id="strListe">
+                    <option value="27">27</option>
+                    <option value="28">28</option>
+                    <option value="29">29</option>
+                    <option value="30">30</option>
+                </select>
+            </p>
+            <p>Pris: <input type="text" size="32" name="pris">
+            <p>
+                <label>Type</label>
+                <select id="baereDygtighed">
+                    <option value="1">JA</option>
+                    <option value="2">NEJ</option>
+                </select>
+            </p>
+            <input type="submit">
+        </fieldset>
+    </form>
+</div>
+<script type="text/javascript" src="app.js"></script>
+</body>
+</html>
