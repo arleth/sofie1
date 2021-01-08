@@ -50,7 +50,7 @@ var ydun_suede_mesh_ii = {
 };
 
 var altius = {
-	type: 			5,
+	type: 			Ftype.NONE,
 	maerke: 	 	"Excelsior",
 	navn:  			"Altius",
 	stoerrelser: 		[41,42,43,44,46], 
@@ -85,7 +85,7 @@ var fodtoejsliste =
 function dameSko() {
 	var dameListe = ""; 
 	for(var i = 0; i<fodtoejsliste.length; i++) {
-		if(fodtoejsliste[i].type === 1 || fodtoejsliste[i].type === 4) {
+		if(fodtoejsliste[i].type == 1 || fodtoejsliste[i].type == 4) {
 			dameListe += "Dame sko:" + "<br>" + "<b>" + "Mærke: " + "</b>" + fodtoejsliste[i].maerke + " " + "<b>" + "Navn: " + "</b>" + fodtoejsliste[i].navn + "<br>" + "<br>";
 		} 
 	} 
@@ -97,7 +97,7 @@ function dameSko() {
 function herreSko(){ 
 	var herreListe = ""; 
 	for(var i = 0; i<fodtoejsliste.length; i++) {
-		if(fodtoejsliste[i].type === 2 || fodtoejsliste[i].type === 4) {
+		if(fodtoejsliste[i].type == 2 || fodtoejsliste[i].type == 4) {
 			herreListe += "Herre sko:" + "<br>" + "<b>" + "Mærke: " + "</b>" + fodtoejsliste[i].maerke + " " + "<b>" + "Navn: " + "</b>" + fodtoejsliste[i].navn + "<br>" + "<br>";
 		}
 	} 
@@ -109,7 +109,7 @@ function herreSko(){
 function boerneSko(){ 
 	var boerneListe = ""; 
 	for(var i = 0; i<fodtoejsliste.length; i++) {
-		if(fodtoejsliste[i].type === 3 || fodtoejsliste[i].type === 4) {
+		if(fodtoejsliste[i].type == 3 || fodtoejsliste[i].type == 4) {
 			boerneListe += "Børne sko:" + "<br>" + "<b>" + "Mærke: " + "</b>" + fodtoejsliste[i].maerke + " " + "<b>" + "Navn: " + "</b>" + fodtoejsliste[i].navn + "<br>" + "<br>";
 		}
 	} 
@@ -131,19 +131,30 @@ function visBilleder(hvad) {
 }; 
 
 // Opg 3 
+function tilfoej_produkter() { 
+	var nye_produkter = {
+		type:			document.getElementById("type").value,
+		maerke:			document.getElementById("maerke").value,
+		navn:			document.getElementById("navn").value,
+		stoerrelser:	document.getElementById("stoerrelser").value,
+		pris:			document.getElementById("pris").value
+	}
+	fodtoejsliste.push(nye_produkter);
+} 
+document.addEventListener('DOMContentLoaded', function(){ // gør at funktionen bliver kaldet, når HTML er loaded på hjemmesiden
+}); 
 
 // opg 4
-function skoStoerrelse() { // 
-	let stoerrelseListe = "";
-	let boerneListe = ""; 
-	let dameListe = "";
-	let herreListe = "";
-	let soegeFelt = document.getElementById("soegStoerrelser").value; // hvad har brugeren tastet
-	let erOK = testSoegeFelt(soegeFelt); // er input ok?
+function skoStoerrelse() { 
+	var boerneListe = ""; 
+	var dameListe = "";
+	var herreListe = "";
+	var soegeFelt = document.getElementById("soegStoerrelser").value; // hvad har brugeren tastet
+	var erOK = testSoegeFelt(soegeFelt); // er input ok?
 	if(erOK) { // hvis input er ok, tjekker vi findes størrelsen overhovedet 
 		if(findesStoerrelse(soegeFelt)) { 
 
-			for(let i = 0; i<fodtoejsliste.length; i++) { 
+			for(var i = 0; i<fodtoejsliste.length; i++) { 
 				if(fodtoejsliste[i].type === 3 || fodtoejsliste[i].type === 4) {
 					if(harStoerrelse(fodtoejsliste[i].stoerrelser, soegeFelt)) {
 						boerneListe += "Børne sko:" + highlight(fodtoejsliste[i]);
@@ -192,7 +203,7 @@ function ikkeHighlight(fodtoej) {
 
 function testSoegeFelt(indhold) {
 	// test om indholdet er et tal og returner true ellers returner false.  
-	let tal = Number(indhold); // hvis Number(indhold) giver et tal er vi glade, så benytter vi vores else. 
+	var tal = Number(indhold); // hvis Number(indhold) giver et tal er vi glade, så benytter vi ikke vores else. 
 	 if (indhold === "" || isNaN(tal)) {  // hvis indhold er tom eller IKKE et tal, så er vi ikke glade.  
 		return false;  
 	} else { 
@@ -201,8 +212,8 @@ function testSoegeFelt(indhold) {
 };
 
 function findesStoerrelse(tal) { // søger efter om vi har størrelsen: leder efter om vi har de globalt
-	let findes = false; 
-	for(let i = 0; i<fodtoejsliste.length; i++) { 
+	var findes = false; 
+	for(var i = 0; i<fodtoejsliste.length; i++) { 
 		findes = harStoerrelse(fodtoejsliste[i].stoerrelser, tal); 
 		if(findes) {
 			break; // ved første fundet stoppes søgningen
@@ -212,9 +223,9 @@ function findesStoerrelse(tal) { // søger efter om vi har størrelsen: leder ef
 };
 
 function harStoerrelse(stoerrelser, soegeFelt) { // designet til at søge i præcist eet array af størrelser
-	let fundet = false; // vi starter med at antage vi ikke har fundet den
-	let soegTal = Number(soegeFelt); // Konverterer til tal, da vi arbejder med et array af tal
-	for(let i = 0; i<stoerrelser.length; i++) {
+	var fundet = false; // vi starter med at antage vi ikke har fundet den
+	var soegTal = Number(soegeFelt); // Konverterer til tal, da vi arbejder med et array af tal
+	for(var i = 0; i<stoerrelser.length; i++) {
 		if(stoerrelser[i] === soegTal) { // Da vi nu har konverteret til den rigtige type, virker det med 3X = 
 			fundet = true; 
 		} 
@@ -225,73 +236,53 @@ function harStoerrelse(stoerrelser, soegeFelt) { // designet til at søge i præ
 	return fundet; 
 };
 
+// Opg 5 
+function soegemaskine(){
+	var soege_ord = ""; 
+	var soegning = document.getElementById("indtastning").value;
+	for(var i = 0; i<fodtoejsliste.length; i++) {
+		if (soegning.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"") == fodtoejsliste[i].maerke.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"") || soegning.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"") == fodtoejsliste[i].navn.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"")) {
+			soege_ord += "<b>" + "Mærke: " + "</b>" + fodtoejsliste[i].maerke + " " + "<b>" + "Navn: " + "</b>" + fodtoejsliste[i].navn + "<br>" + "<br>";
+		} else {
+			document.getElementById("indtastning").value = "Skal være en tekst"; 
+		}
+	} 
+	document.getElementById("liste").innerHTML = soege_ord;
+};
 
-
-
-/*function nySko(type, maerke, navn, stoerrelser, pris) {
-	this.type = type, 
-	this.maerke = maerke, 
-	this.navn = navn, 
-	this.stoerrelser = stoerrelser, 
-	this.pris = pris,
-	this.getName = function skoKnap() {
-		return this.type + " " + this.maerke + " " + this.navn + " " + this.stoerrelser + " " + this.pris
+function erDetOK(stof){
+	// test om indholdet er en tekst og returner true ellers returner false. 
+	var tekst = String(stof); // hvis String(stof) giver en tekst er vi glade, så benytter vi ikke vores else. 
+	if(stof === "") { // hvis indholdet er tomt, så er vi ikke glade og false returneres.
+		return false;
+	} else {
+		return true;
 	}
 };
-*/
 
-/*var produkter = [];
+// Individuel B    
+function sorterFodtoej() { // kopiere det oprindelige array  
+	var sorteringsListe = [...fodtoejsliste];
+	sorteringsListe.sort(function(a, b){return a.stoerrelser.length - b.stoerrelser.length}); 
+	return sorteringsListe;  
+};  
 
-function tilfoejSko() {
-	nyt_produkt = document.getElementById("box").value; 
-	fodtoejsliste.push(nyt_produkt); 
-	return false; 
+function visSortering(){
+	var visSorteretListe = "";  
+	var sortArray = sorterFodtoej(); 
+	for(var i = 0; i<sortArray.length; i++) {
+		if(sortArray[i].type == 1 || sortArray[i].type == 4) {
+			visSorteretListe += "Dame sko:" + "<br>" + "<b>" + "Mærke: " + "</b>" + sortArray[i].maerke + " " + "<b>" + "Navn: " + "</b>" + sortArray[i].navn + " " + "<b>" + "Størrelser: " + "</b>" + sortArray[i].stoerrelser + "<br>" + "<br>";
+		} 
+		if(sortArray[i].type == 2 || sortArray[i].type == 4) {
+			visSorteretListe += "Herre sko:" + "<br>" + "<b>" + "Mærke: " + "</b>" + sortArray[i].maerke + " " + "<b>" + "Navn: " + "</b>" + sortArray[i].navn + " " + "<b>" + "Størrelser: " + "</b>" + sortArray[i].stoerrelser + "<br>" + "<br>";
+		}
+		if(sortArray[i].type == 3 || sortArray[i].type == 4) {
+			visSorteretListe += "Børne sko:" + "<br>" + "<b>" + "Mærke: " + "</b>" + sortArray[i].maerke + " " + "<b>" + "Navn: " + "</b>" + sortArray[i].navn + " " + "<b>" + "Størrelser: " + "</b>" + sortArray[i].stoerrelser + "<br>" + "<br>";
+		}
+	} 
+	document.getElementById("liste").innerHTML = visSorteretListe; 
 };
-*/
-
-
-
-
-/*var produkter = [];
-
-function tilfoejSko() {
-	var nyt_produkt = document.getElementById("ny_sko"); 
-	produkter.push(nyt_produkt.value); 
-	nyt_produkt.value = "";
-};
-
-function visFodtoej() {
-	document.getElementById("produkter").innerHTML = values.join(", ");
-}; */
-
-// fodtoejsliste.push(nyt_produkt_liste); 
-
-	/*var produkter = document.querySelectorAll('.produkt'); 
-	var produkterArray = Array.from(produkt); 
-	var nyArray = [];
-	nyArray.push.apply(nyArray, fodtoejsliste);
-	nyArray.push.apply(nyArray, produkterArray); 
-	*/
-
-/*var produkterne = {
-Type: document.getElementById("type").value
-Mærke: document.getElementById("maerke").value
-Navn: document.getElementById("navn").value
-Størrelser: document.getElementById("stoerrelser").value
-Pris: document.getElementById("pris").value
-};
-*/
-
-/*var nySko = {
-	type:			document.getElementById("type").value,
-	maerke:			document.getElementById("maerke").value,
-	navn:			document.getElementById("navn").value,
-	stoerrelser:	document.getElementById("stoerrelser").value,
-	pris:			document.getElementById("pris").value
-};
-*/ 
-
-
 
 
 

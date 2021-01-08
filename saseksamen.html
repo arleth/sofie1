@@ -10,17 +10,31 @@
 
 	<div id="sko">
 		<h1>Sko</h1>
-	</div>
-
-	<div class="menu">
-		<button onclick="dameSko()">Dame</button>
-		<button onclick="herreSko()">Herre</button>
-		<button onclick="boerneSko()">Børn</button> <br> <br> 
-	<div> 
-		<button onclick="skoStoerrelse()">Sko størrelser</button>
-		<input type="search" id="soegStoerrelser">
-	</div>
 	</div> 
+
+	<ul>
+		<li><button onclick="dameSko()">Dame</button></li> <br>
+		<li><button onclick="herreSko()">Herre</button></li> <br>
+		<li><button onclick="boerneSko()">Børn</button> </li><br> <br> 
+	</ul>
+
+	<div class="menu"> 
+		<p class="b"><b>Søg efter størrelser, mærke eller navn:</b></p>
+		<input type="search" id="indtastning" placeholder="Navn eller mærke">
+		<button onclick="soegemaskine()">Søg </button> <br> <br>
+		<button id="knap" onclick="skoStoerrelse()">Sko størrelser</button> 
+		<input type="search" id="soegStoerrelser" placeholder="Søg efter størrelse"> 
+		<button id="rang" onclick="visSortering()">Størrelses sortering</button> <br> <br>  
+		<div>
+			<p class="b"><b>Tilføj Sko:</b></p>
+			<input type="number" name="type" id="type" placeholder="Type">
+			<input type="text" name="maerke" id="maerke" placeholder="Mærke">
+			<input type="text" name="navn " id="navn" placeholder="Navn">
+			<input type="number" name="stoerrelser" id="stoerrelser" placeholder="Størrelse">
+			<input type="number" name="pris" id="pris" placeholder="Pris">
+			<button id="nytProdukt" type="button" onclick="tilfoej_produkter()">Tilføj sko</button>
+		</div>
+	</div>
 
 	<hr class="linje"> <br> 
 
@@ -40,18 +54,6 @@
 	<div id="liste"></div>  
 
 	<hr class="linje">  
-
-<div>
-	<p class="b"><b>Tilføj Sko:</b></p>
-	<input type="number" name="type" id="ny_sko">
-	<input type="text" name="maerke" id="ny_sko">
-	<input type="text" name="navn " id="ny_sko">
-	<input type="number" name="stoerrelser" id="ny_sko">
-	<input type="number" name="pris" id="ny_sko">
-	<input type="button" value="Enter" onclick="tilfoejSko()">
-</div>
-
-<button onclick="skoKnap()">Tilføj Sko</button>
 
 <script type="text/javascript" src="saseksamen.js"></script>
 </body>
