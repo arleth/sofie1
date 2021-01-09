@@ -14,7 +14,7 @@
 	position: absolute;
 	top: 135px; 
 	left: 325px; 
-	border: 05px solid navy;
+	border: 05px solid darkorange;
 	width: 900px;
 } 
 
@@ -67,4 +67,8 @@ body{
 	margin-right: auto; 
 	width: 600px; 
 	height: 125px;
+}
+
+.ikkeHighlight_tal{
+	color: red;
 }

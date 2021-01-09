@@ -19,15 +19,22 @@
 	</ul>
 
 	<div class="menu"> 
-		<p class="b"><b>Søg efter størrelser, mærke eller navn:</b></p>
-		<input type="search" id="indtastning" placeholder="Navn eller mærke">
-		<button onclick="soegemaskine()">Søg </button> <br> <br>
-		<button id="knap" onclick="skoStoerrelse()">Sko størrelser</button> 
-		<input type="search" id="soegStoerrelser" placeholder="Søg efter størrelse"> 
-		<button id="rang" onclick="visSortering()">Størrelses sortering</button> <br> <br>  
 		<div>
-			<p class="b"><b>Tilføj Sko:</b></p>
-			<input type="number" name="type" id="type" placeholder="Type">
+			<p class="b"><b>Søg efter størrelser, mærke eller navn:</b></p>
+		</div>
+		<div>
+			<input type="search" id="indtastning" placeholder="Navn eller mærke">
+			<button onclick="soegemaskine()">Søg </button> <br> <br>
+		</div>
+		<div>
+			<button id="knap" onclick="skoStoerrelse()">Sko størrelser</button> 
+			<input type="search" id="soegStoerrelser" placeholder="Søg efter størrelse"> 
+			<button id="rang" onclick="visSortering()">Størrelses sortering</button> <br> <br>  
+		</div>	
+		<div>
+			<p class="b"><b>Tilføj Sko:</b></p> 
+			<label for="type"> Dame: 1 Herrre: 2 Børn: 3 None: 4 <br>
+			<input type="number" name="type" id="type" placeholder="Type tal 1-4">
 			<input type="text" name="maerke" id="maerke" placeholder="Mærke">
 			<input type="text" name="navn " id="navn" placeholder="Navn">
 			<input type="number" name="stoerrelser" id="stoerrelser" placeholder="Størrelse">

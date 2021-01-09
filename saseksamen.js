@@ -198,7 +198,7 @@ function highlight(fodtoej) {
 }
 
 function ikkeHighlight(fodtoej) {
-	return "<br>" + "<b>" + "Mærke: " + "</b>" + fodtoej.maerke + " " + "<b>" + "Navn: " + "</b>" + fodtoej.navn + "<br>" + "<br>";
+	return "<br>" + "<b>" + "Mærke: " + "</b>" + '<span class="ikkeHighlight_tal">' + fodtoej.maerke + "</span>" + " " + "<b>" + "Navn: " + "</b>" + '<span class="ikkeHighlight_tal">' + fodtoej.navn + "</span>" + "<br>" + "<br>";
 }
 
 function testSoegeFelt(indhold) {
@@ -239,16 +239,20 @@ function harStoerrelse(stoerrelser, soegeFelt) { // designet til at søge i præ
 // Opg 5 
 function soegemaskine(){
 	var soege_ord = ""; 
-	var soegning = document.getElementById("indtastning").value;
-	for(var i = 0; i<fodtoejsliste.length; i++) {
-		if (soegning.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"") == fodtoejsliste[i].maerke.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"") || soegning.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"") == fodtoejsliste[i].navn.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"")) {
-			soege_ord += "<b>" + "Mærke: " + "</b>" + fodtoejsliste[i].maerke + " " + "<b>" + "Navn: " + "</b>" + fodtoejsliste[i].navn + "<br>" + "<br>";
-		} else {
-			document.getElementById("indtastning").value = "Skal være en tekst"; 
-		}
-	} 
+	var soegning = document.getElementById("indtastning").value;  
+	var erDetOk = erDetOK(soegning); 
+	if(erDetOk) { 
+		var soegEfter = soegning.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,""); // rens søgefelt fra tegn og sætter tekst toLowerCase
+		for(var i = 0; i<fodtoejsliste.length; i++) {
+			if (harMatch(soegEfter, fodtoejsliste[i])){ // tjek for match
+				soege_ord += "<b>" + "Mærke: " + "</b>" + fodtoejsliste[i].maerke + " " + "<b>" + "Navn: " + "</b>" + fodtoejsliste[i].navn + "<br>" + "<br>";
+			} 
+		} 
+	} else {
+		document.getElementById("indtastning").value = "Skal være en tekst"; 
+	}
 	document.getElementById("liste").innerHTML = soege_ord;
-};
+}; 
 
 function erDetOK(stof){
 	// test om indholdet er en tekst og returner true ellers returner false. 
@@ -260,16 +264,49 @@ function erDetOK(stof){
 	}
 };
 
+function harMatch(soegEfter, fodtoej) { // tjekker for match
+	var fundet = false; // starter med at antage, at man ikke har fundet noget
+	var rensetMaerke = fodtoej.maerke.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,""); 
+	var rensetNavn = fodtoej.navn.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
+	// Tjek for præcist match
+	if (soegEfter == rensetMaerke || soegEfter == rensetNavn){
+		fundet = true; 
+	} 
+	// Tjek for partiel match 
+	if(rensetMaerke.indexOf(soegEfter) !== -1 || rensetNavn.indexOf(soegEfter) !== -1) {
+		fundet = true;
+	} 
+	// Tjek selvom eventuel stavefejl
+	if(fuzzyMatch(soegEfter, rensetMaerke) || fuzzyMatch(soegEfter, rensetNavn)) {
+		fundet = true; 
+	}
+	return fundet;
+}; 
+
+function fuzzyMatch(soegEfter, fodtoej) {  
+	if(soegEfter.includes(s) === z || soegEfter.includes(e) === a) {
+		return true;
+	} else {
+		return false;
+	}
+};  
+
+// fuzzyMatch(soegEfter, rensetMaerke) || fuzzyMatch(soegEfter, rensetNavn
+
+//if (soegning.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"") == fodtoejsliste[i].maerke.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"") || soegning.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"") == fodtoejsliste[i].navn.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"")){
+
 // Individuel B    
-function sorterFodtoej() { // kopiere det oprindelige array  
-	var sorteringsListe = [...fodtoejsliste];
-	sorteringsListe.sort(function(a, b){return a.stoerrelser.length - b.stoerrelser.length}); 
+function sorterFodtoej() { // kopiere det oprindelige array, vi ønsker ikke at ændre i fodtoejslisten, som er en global variabel  
+	var sorteringsListe = [...fodtoejsliste]; 
+	//function(a, b){return a.stoerrelser.length - b.stoerrelser.length} - er sorterings funktionen, der sendes med ned til sort 
+	//Sorterer i faldende orden, korteste array først. Ønskes i stigende orden byttes rundt på a og b i return statement  
+	sorteringsListe.sort(function(a, b){return a.stoerrelser.length - b.stoerrelser.length}); // sorterer efter længden af størrelsernes array i faldende orden
 	return sorteringsListe;  
 };  
 
-function visSortering(){
+function visSortering(){ 
 	var visSorteretListe = "";  
-	var sortArray = sorterFodtoej(); 
+	var sortArray = sorterFodtoej(); // returnerer en sorteret array 
 	for(var i = 0; i<sortArray.length; i++) {
 		if(sortArray[i].type == 1 || sortArray[i].type == 4) {
 			visSorteretListe += "Dame sko:" + "<br>" + "<b>" + "Mærke: " + "</b>" + sortArray[i].maerke + " " + "<b>" + "Navn: " + "</b>" + sortArray[i].navn + " " + "<b>" + "Størrelser: " + "</b>" + sortArray[i].stoerrelser + "<br>" + "<br>";
