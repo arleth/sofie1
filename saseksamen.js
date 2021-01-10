@@ -272,28 +272,42 @@ function harMatch(soegEfter, fodtoej) { // tjekker for match
 	if (soegEfter == rensetMaerke || soegEfter == rensetNavn){
 		fundet = true; 
 	} 
-	// Tjek for partiel match 
-	if(rensetMaerke.indexOf(soegEfter) !== -1 || rensetNavn.indexOf(soegEfter) !== -1) {
-		fundet = true;
-	} 
+	// Tjek for partiel match
+	if(!fundet) { 
+		if(rensetMaerke.indexOf(soegEfter) !== -1 || rensetNavn.indexOf(soegEfter) !== -1) {
+			fundet = true;
+		} 
+	}
 	// Tjek selvom eventuel stavefejl
-	if(fuzzyMatch(soegEfter, rensetMaerke) || fuzzyMatch(soegEfter, rensetNavn)) {
-		fundet = true; 
+	if(!fundet) { 
+		if(fuzzyMatch(soegEfter, fodtoej) || fuzzyMatch(soegEfter, fodtoej)) {
+			fundet = true; 
+		}
 	}
 	return fundet;
 }; 
 
-function fuzzyMatch(soegEfter, fodtoej) {  
-	if(soegEfter.includes(s) === z || soegEfter.includes(e) === a) {
-		return true;
-	} else {
-		return false;
+function fuzzyMatch(soegEfter, fodtoej) { 
+	var fundet = false; // starter med at antage, at man ikke har fundet noget
+	var ord1 = "s";
+	var ord2 = "e";
+	var rensetMaerke = fodtoej.maerke.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,""); 
+	var rensetNavn = fodtoej.navn.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
+	var soegEfterNy = "";
+	if(soegEfter.includes(ord1)){
+		soegEfterNy = soegEfter.replace(ord1, "z");
+		if(soegEfterNy == rensetMaerke || soegEfterNy == rensetNavn) {
+			fundet = true;
+		}
 	}
-};  
-
-// fuzzyMatch(soegEfter, rensetMaerke) || fuzzyMatch(soegEfter, rensetNavn
-
-//if (soegning.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"") == fodtoejsliste[i].maerke.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"") || soegning.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"") == fodtoejsliste[i].navn.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"")){
+	if(soegEfter.includes(ord2)){
+		soegEfterNy = soegEfter.replace(ord2, "a");
+		if(soegEfterNy == rensetMaerke || soegEfterNy == rensetNavn) {
+			fundet = true;
+		}
+	}
+	return fundet; 
+};
 
 // Individuel B    
 function sorterFodtoej() { // kopiere det oprindelige array, vi ønsker ikke at ændre i fodtoejslisten, som er en global variabel  
