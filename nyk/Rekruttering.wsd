@@ -1,0 +1,13 @@
+@startuml
+|#CC99EE|Swimlane1|
+start
+:foo1;
+|#AntiqueWhite|Swimlane2|
+#HotPink:foo2;
+#AAAAAA:foo3;
+|Swimlane1|
+#AABBCC:**foo4**;
+|Swimlane2|
+#CC99FF:foo5;
+stop
+@enduml
