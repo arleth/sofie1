@@ -1,0 +1,23 @@
+@startuml
+|Afdeling|
+start
+:Ny medarbejder;
+|#AntiqueWhite|HR|
+if (intern?) then (yes)
+      :Intranet.Opslag();
+    else (no)
+      :Opret.StillingsAnnonce();
+    endif
+    fork
+:Modtag ansøgninger;
+:Screening af egnede;
+|HR|
+:Forslag til Afdeling;
+|Afdeling|
+:Udvælgelse;
+|HR|
+:Udsendelse indkaldelse;
+|Procurement|
+
+stop
+@enduml
