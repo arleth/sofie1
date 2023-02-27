@@ -8,6 +8,6 @@ start
 |Swimlane1|
 #AABBCC:**foo4**;
 |Swimlane2|
-#CC99FF:foo5;
+#CC99FF:foo7;
 stop
 @enduml
