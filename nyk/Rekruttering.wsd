@@ -1,13 +1,95 @@
-@startuml
-|#CC99EE|Swimlane1|
+@startuml 
+|Leder|
 start
-:foo1;
-|#AntiqueWhite|Swimlane2|
-#HotPink:foo2;
-#AAAAAA:foo3;
-|Swimlane1|
-#AABBCC:**foo4**;
-|Swimlane2|
-#CC99FF:foo7;
+:Udfylder blå blanket;
+:Sender blå blanket til godkendelse hos sin leder;
+|Leders leder| 
+:Modtager blå blanket til godkendelse; 
+if(Godkendelse af normering?) then (yes)
+    :Send OK tilbage;
+else(no)
+    end
+endif 
+|Leder| 
+:Modtager OK fra leder; 
+:Sender OK til Rek.part; 
+|HR|
+:Rek.part modtager godkendelse med OK fra leder;
+:Rek.part sender mailen videre til Nyrek; 
+#LightBlue:Nyrek opretter godkendelsen; 
+#LightBlue:Nyrek gemmer godkendelsen med ref.nr som PDF;
+#LightBlue:Nyrek sender ref.nr til rek.par med leder CC;
+Fork 
+:Rek.part modtager ref.nr og noterer oplysningerne;
+:Kontakter leder ang. opstartsmøde;
+:Opstartsmøde med leder;
+Fork again 
+|Leder|
+:Modtager mail CC med ref.nr;
+:Kontaktes af Rek.part ang. opstartsmøde;
+:Opstartsmøde med Rek.part; 
+End fork 
+|Leder|
+:Udarbejer et stillingsopslag; 
+:Sender stillingsopslag til rek.part; 
+|HR|
+:Rek.part sender stillingsopslaget videre til Nyrek;
+#LightBlue:Nyrek læser korrektur og publicerer stillingen;
+#LightBlue:Nyrek sender annonceringsmail til leder med rek.part CC;
+Fork 
+:Rek.part modtager annonceringsmailen CC; 
+Fork again
+|Leder|
+:Modtager annonceringsmailen; 
+End fork
+|Leder| 
+:Screener kandidater; 
+If (Er kandidaten egnet?) then (yes)
+    :Inviter kandidaten til 1. samtale;
+else (no) 
+    if(Er kandidaten intern?) then (yes)
+        :Giv mundtligt afslag;
+        end
+    else (no) 
+        :Giv skrifligt afslag;
+        end
+    endif
+Endif 
+|Leder|
+:Afholder 1. samtale; 
+If (Er kandidaten egnet?) then (yes) 
+    :Inviter kandidaten til 2. samtale;
+else (no) 
+    :Giv mundtligt afslag; 
+    end 
+endif 
+|Leder|
+:Tager fat i rek.part ang. kandidater til 2. samtale; 
+|HR|
+:Rek.part supporterer med afslag;
+:Rek.part og leder koordinerer kalender til samtaler;
+:Rek.part sender test til kandidaterne, der skal til 2. samtale;
+:Rek.part sender kompetencevurdering; 
+|Leder| 
+:Modtager kompetencevurdering og oplyser rek.part om de vigtigste;
+Fork 
+:Afholder 2. samtale; 
+if (Er kandidaten egnet?) then (yes)
+    :Tilbyd jobbet; 
+else (no)
+    :Giv mundtligt afslag; 
+    end
+endif
+Fork again
+|HR|
+:Rek.part afholder 2. samtale;
+:Rek.part supporterer lederen i valget af kandidaten til jobbet; 
+:Rek.part supporterer lederen med vilkår/løn mm.; 
+:Rek.part indhenter referencer på kandidaten; 
+End fork
+|HR|
+:Rek.part bestiller kontrakten; 
+:Rek.part lukker stillingen;
+:Rek.part opdaterer oplysningerne i arket;
 stop
 @enduml
