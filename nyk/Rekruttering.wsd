@@ -2,9 +2,12 @@
 |Leder|
 start
 :Udfylder blå blanket;
+floating note left: Sharepoint eller lederportalen
 :Sender blå blanket til godkendelse hos sin leder;
+floating note left: Outlook
 |Leders leder| 
-:Modtager blå blanket til godkendelse; 
+:Modtager blå blanket til godkendelse;
+floating note left: Outlook 
 if(Godkendelse af normering?) then (yes)
     :Send OK tilbage;
 else(no)
@@ -12,84 +15,127 @@ else(no)
 endif 
 |Leder| 
 :Modtager OK fra leder; 
+floating note left: Outlook
 :Sender OK til Rek.part; 
+floating note left: Outlook
 |HR|
 :Rek.part modtager godkendelse med OK fra leder;
+floating note left: Outlook
 :Rek.part sender mailen videre til Nyrek; 
+floating note left: Outlook
 #LightBlue:Nyrek opretter godkendelsen; 
+floating note left: TalentSoft
 #LightBlue:Nyrek gemmer godkendelsen med ref.nr som PDF;
+floating note left: Gemmes på S-drevet 
 #LightBlue:Nyrek sender ref.nr til rek.par med leder CC;
+floating note left: Outlook
 Fork 
-:Rek.part modtager ref.nr og noterer oplysningerne;
+:Rek.part modtager ref.nr og noterer oplysningerne i ark;
+floating note left: Outlook og Excel-ark
 :Kontakter leder ang. opstartsmøde;
+floating note left: Outlook eller Opkald
 :Opstartsmøde med leder;
+floating note left: Fysisk eller opkald 
 Fork again 
 |Leder|
 :Modtager mail CC med ref.nr;
-:Kontaktes af Rek.part ang. opstartsmøde;
+floating note left: Outlook
+:Kontaktes af Rek.part ang. opstartsmøde; 
+floating note left: Outlook eller Opkald
 :Opstartsmøde med Rek.part; 
+floating note left: Fysisk eller opkald
 End fork 
 |Leder|
-:Udarbejer et stillingsopslag; 
-:Sender stillingsopslag til rek.part; 
+:Udarbejer et stillingsopslag;
+floating note left: Word 
+:Sender stillingsopslag til rek.part;
+floating note left: Outlook 
 |HR|
-:Rek.part sender stillingsopslaget videre til Nyrek;
+:Rek.part sender stillingsopslaget videre til Nyrek; 
+floating note left: Outlook
 #LightBlue:Nyrek læser korrektur og publicerer stillingen;
+floating note left: Læser korrektur i word og publicerer stillingen i TalentSoft
 #LightBlue:Nyrek sender annonceringsmail til leder med rek.part CC;
+floating note left: Outlook
 Fork 
 :Rek.part modtager annonceringsmailen CC; 
+floating note left: Outlook
 Fork again
 |Leder|
 :Modtager annonceringsmailen; 
+floating note left: Outlook
 End fork
 |Leder| 
 :Screener kandidater; 
+floating note left: TalentSoft
 If (Er kandidaten egnet?) then (yes)
     :Inviter kandidaten til 1. samtale;
+    floating note left: Opkald eller evt. skriftligt i TalentSoft
 else (no) 
     if(Er kandidaten intern?) then (yes)
         :Giv mundtligt afslag;
+        floating note left: Opkald
         end
     else (no) 
         :Giv skrifligt afslag;
+        floating note left: TalentSoft
         end
     endif
 Endif 
 |Leder|
 :Afholder 1. samtale; 
+floating note left: Fysisk 
 If (Er kandidaten egnet?) then (yes) 
-    :Inviter kandidaten til 2. samtale;
+    :Inviter kandidaten til 2. samtale; 
+    floating note left: Opkald
 else (no) 
     :Giv mundtligt afslag; 
+    floating note left: Opkald
     end 
 endif 
 |Leder|
 :Tager fat i rek.part ang. kandidater til 2. samtale; 
+floating note left: Outlook eller opkald
 |HR|
 :Rek.part supporterer med afslag;
+floating note left: TalentSoft
 :Rek.part og leder koordinerer kalender til samtaler;
+floating note left: Outlook, opkald eller fysisk
 :Rek.part sender test til kandidaterne, der skal til 2. samtale;
-:Rek.part sender kompetencevurdering; 
+floating note left: Outlook
+:Rek.part sender kompetencevurdering;
+floating note left: Outlook 
 |Leder| 
 :Modtager kompetencevurdering og oplyser rek.part om de vigtigste;
+floating note left: Outlook, opkald eller fysisk
 Fork 
 :Afholder 2. samtale; 
+floating note left: Fysisk
 if (Er kandidaten egnet?) then (yes)
     :Tilbyd jobbet; 
+    floating note left: Opkald
 else (no)
     :Giv mundtligt afslag; 
+    floating note left: Opkald
     end
 endif
 Fork again
 |HR|
 :Rek.part afholder 2. samtale;
-:Rek.part supporterer lederen i valget af kandidaten til jobbet; 
+floating note left: Fysisk
+:Rek.part supporterer lederen i valget af kandidaten til jobbet;
+floating note left: Fysisk eller opkald 
 :Rek.part supporterer lederen med vilkår/løn mm.; 
-:Rek.part indhenter referencer på kandidaten; 
+floating note left: Outlook, fysisk eller opkald 
+:Rek.part indhenter referencer på kandidaten;
+floating note left: Outlook 
 End fork
 |HR|
 :Rek.part bestiller kontrakten; 
+floating note left: TalentSoft
 :Rek.part lukker stillingen;
+floating note left: TalentSoft
 :Rek.part opdaterer oplysningerne i arket;
+floating note left: Excel-ark
 stop
 @enduml
